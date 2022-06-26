@@ -25,10 +25,11 @@
                 <el-table-column label="姓名" prop="username"></el-table-column>
                 <el-table-column label="邮箱" prop="email"></el-table-column>
                 <el-table-column label="电话" prop="mobile"></el-table-column>
-                <el-table-column label="角色" prop="role_name"></el-table-column>
+                <el-table-column class-name="zch" label-class-name="zch2" label="角色" prop="role_name"></el-table-column>
                 <el-table-column label="状态">
-                    <template slot-scope="scope">
-                        <el-switch v-model="scope.row.mg_state" @change="userStateChanged(scope.row)">
+                    <template slot-scope="{row}">
+                        <!-- {{ row.mg_state }} -->
+                        <el-switch v-model="row.mg_state" @change="userStateChanged(row)">
                         </el-switch>
                     </template>
                 </el-table-column>
@@ -38,7 +39,8 @@
                         <el-button type="primary" icon="el-icon-edit" size="mini" @click="showEditDialog(scope.row.id)">
                         </el-button>
                         <!-- 删除按钮 -->
-                        <el-button type="danger" icon="el-icon-delete" size="mini" @click="removeUserById(scope.row.id)"></el-button>
+                        <el-button type="danger" icon="el-icon-delete" size="mini"
+                            @click="removeUserById(scope.row.id)"></el-button>
                         <!-- 分配角按钮 -->
                         <el-tooltip effect="dark" content="分配角色" placement="top" :enterable="false">
                             <el-button type="warning" icon="el-icon-setting" size="mini" @click="setRole(scope.row)">
@@ -98,8 +100,8 @@
         <!-- 分配角色的对话框 -->
         <el-dialog title="分配角色" :visible.sync="setRoleDialogVisible" width="50%" @close="setRoleDialogClosed">
             <div>
-                <p>当前的用户：{{userInfo.username}}</p>
-                <p>当前的角色：{{userInfo.role_name}}</p>
+                <p>当前的用户：{{ userInfo.username }}</p>
+                <p>当前的角色：{{ userInfo.role_name }}</p>
                 <p>分配新角色：
                     <el-select v-model="selectedRoleId" placeholder="请选择">
                         <el-option v-for="item in rolesList" :key="item.id" :label="item.roleName" :value="item.id">
@@ -269,7 +271,7 @@ export default {
                         mobile: this.editForm.mobile
                     })
                 if (res.meta.status !== 200) {
-                   return this.$message.error('更新用户信息失败！')
+                    return this.$message.error('更新用户信息失败！')
                 }
                 this.editDialogVisible = false
                 this.getUserList()
@@ -310,9 +312,9 @@ export default {
             }
             const { data: res } = await this.$http.put(
                 `users/${this.userInfo.id}/role`,
-            {
-                rid: this.selectedRoleId
-            }
+                {
+                    rid: this.selectedRoleId
+                }
             )
             if (res.meta.status !== 200) {
                 return this.$message.error('更新角色失败！')
@@ -342,5 +344,16 @@ export default {
 
 .box-card {
     width: 480px;
+}
+
+
+</style>
+<style>
+
+.zch {
+        color: red important;
+}
+.zch2{
+    color: blue;
 }
 </style>
