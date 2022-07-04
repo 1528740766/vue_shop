@@ -7,7 +7,20 @@ import Users from'../components/user/users.vue'
 import Rights from'../components/power/Rights.vue'
 import Roles from'../components/power/Roles.vue'
 import Cate from'../components/goods/Cate.vue'
-import  Params from'../components/goods/Params.vue'
+import Params from'../components/goods/Params.vue'
+import GoodsList from'../components/goods/List.vue'
+import Add from'../components/goods/Add.vue'
+import Order from'../components/goods/order/Order.vue'
+import Report from'../components/report/Report.vue'
+// 导入富文本编辑器
+import VueQuillEditor from 'vue-quill-editor'
+// 导入富文本编辑器样式
+import 'quill/dist/quill.core.css'
+import 'quill/dist/quill.snow.css'
+import 'quill/dist/quill.bubble.css'
+// 安装富文本编辑器
+Vue.use(VueQuillEditor)
+
 
 
 Vue.use(VueRouter)
@@ -25,9 +38,13 @@ const router= new VueRouter({
       {path: '/rights', component: Rights},
       {path: '/roles', component: Roles},
       {path: '/categories', component: Cate}, 
-      {path: '/params', component: Params}
-    ]
-    }
+      {path: '/params', component: Params},
+      {path: '/goods', component: GoodsList},
+      {path: '/goods/add', component: Add},
+      {path: '/orders', component: Order},
+      {path: '/reports', component: Report},
+     ]
+    } 
   ]
 })
 // 挂载路由导航守卫

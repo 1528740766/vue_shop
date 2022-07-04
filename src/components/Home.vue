@@ -63,7 +63,7 @@ export default {
   },
   created() {
     this.getMenuList();
-    this.activePath=window.sessionStorage.getItem('activePath');
+    this.activePath = window.sessionStorage.getItem('activePath');
   },
   methods: {
     logout() {
@@ -83,8 +83,8 @@ export default {
     // 保存当前菜单的状态
     saveNavState(activePath) {
       window.sessionStorage.setItem('activePath', activePath);
-      this.activePath=activePath;
-  }
+      this.activePath = activePath;
+    }
 
   },
 }

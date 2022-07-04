@@ -40,9 +40,9 @@
                         <el-table-column label="操作">
                             <template slot-scope="scope">
                                 <el-button size="mini" type="primary" icon="el-icon-edit"
-                                    @click="showEditDialog(scope.row.attr_id)">编辑</el-button>
+                                    @click="showEditDialog(scope.row.attrId)">编辑</el-button>
                                 <el-button size="mini" type="danger" icon="el-icon-delete"
-                                    @click="removeParams(scope.row.attr_id)">删除</el-button>
+                                    @click="removeParams(scope.row.attrId)">删除</el-button>
                             </template>
                         </el-table-column>
                     </el-table>
@@ -62,9 +62,9 @@
                         <el-table-column label="操作">
                             <template slot-scope="scope">
                                 <el-button size="mini" type="primary" icon="el-icon-edit"
-                                    @click="showEditDialog(scope.row.attr_id)">编辑</el-button>
+                                    @click="showEditDialog(scope.row.attrId)">编辑</el-button>
                                 <el-button size="mini" type="danger" icon="el-icon-delete"
-                                    @click="removeParams(scope.row.attr_id)">删除</el-button>
+                                    @click="removeParams(scope.row.attrId)">删除</el-button>
                             </template>
                         </el-table-column>
                     </el-table>
@@ -225,10 +225,10 @@ export default {
             })
         },
         // 点击按钮，展示修改的对话框
-        async showEditDialog(attr_id) {
+        async showEditDialog(attrId) {
             // 查询当前参数的信息
             const { data: res } = await this.$http.get(
-                `categories/${this.cateId}/attributes/${attr_id}`,
+                `categories/${this.cateId}/attributes/${attrId}`,
                 {
                     params: { attr_sel: this.activeName }
                 }
@@ -250,7 +250,7 @@ export default {
             this.$refs.editFormRef.validate(async valid => {
                 if (!valid) return
                 const { data: res } = await this.$http.put(
-                    `categories/${this.cateId}/attributes/${this.editForm.attr_id}`,
+                    `categories/${this.cateId}/attributes/${this.editForm.attrId}`,
                     { attr_name: this.editForm.attr_name, attr_sel: this.activeName }
                 )
 
@@ -264,7 +264,7 @@ export default {
             })
         },
         // 根据Id删除对应的参数项
-        async removeParams(attr_id) {
+        async removeParams(attrId) {
             const confirmResult = await this.$confirm(
                 '此操作将永久删除该参数, 是否继续?',
                 '提示',
@@ -282,7 +282,7 @@ export default {
 
             // 删除的业务逻辑
             const { data: res } = await this.$http.delete(
-                `categories/${this.cateId}/attributes/${attr_id}`
+                `categories/${this.cateId}/attributes/${attrId}`
             )
 
             if (res.meta.status !== 200) {
